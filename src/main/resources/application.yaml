@@ -1,0 +1,75 @@
+server:
+  port: 8080
+
+debug: false
+logging:
+  level:
+    com.hacker.hacker: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.web.client.RestTemplate: debug
+
+spring:
+  webflux:
+    codec:
+      max-in-memory-size: 2MB
+  devtools:
+    livereload:
+      port: 35730
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  profiles:
+    active: local
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/hacker?createDatabaseIfNotExist=True&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 0213
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        dialect: org.hibernate.dialect.MySQLDialect
+  sql:
+    init:
+      mode: always
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://hacker-rds.ci3jr60ujldo.ap-northeast-2.rds.amazonaws.com:3306/hacker?createDatabaseIfNotExist=True&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: tmddnjs213
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+        dialect: org.hibernate.dialect.MySQLDialect
+  sql:
+    init:
+      mode: always
