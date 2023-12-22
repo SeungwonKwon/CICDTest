@@ -221,7 +221,6 @@ gradle-app.setting
 *.hprof
 
 ### config ###
-application.yaml
 application.yml
 application-dev.yml
 apple_secret.json
