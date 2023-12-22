@@ -3,11 +3,11 @@ run-name: Running
 on:
   push:
     branches:
-      [ "master" ]
+      [ "main" ]
 
 env:
   AWS_REGION: ap-northeast-2
-  AWS_S3_BUCKET: app-release-files
+  AWS_S3_BUCKET: hacker-cicd-test
   AWS_CODE_DEPLOY_APPLICATION: cicd-test-CD
   AWS_CODE_DEPLOY_GROUP: cicd-test-CD-group
 
@@ -15,10 +15,10 @@ jobs:
   build-with-gradle:
     runs-on: ubuntu-20.04
     steps:
-    - name: production 브랜치로 이동
+    - name: main 브랜치로 이동
       uses: actions/checkout@v3
       with:
-        ref: production
+        ref: main
     - name: JDK 17 설치
       uses: actions/setup-java@v3
       with:
